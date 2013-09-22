@@ -3,7 +3,7 @@
 A tiny utility to highlight multiple keywords with different colors
 
 - Idea: Paolo Antinori
-- Based on: ack - http://beyondgrep.com/ written by Andy Lester
+- Based on: *ack* - http://beyondgrep.com/ written by Andy Lester
 
 === Description
 
