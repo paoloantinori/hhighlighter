@@ -49,7 +49,7 @@ You can install it in one of these ways
 
 === Usage
 
-*ack* is meant to consume the output of another linux command via pipe
+*h* is meant to consume the output of another linux command via pipe
 
 
 
