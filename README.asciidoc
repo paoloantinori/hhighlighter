@@ -1,0 +1,66 @@
+== hhighligher (or just h)
+
+A tiny utility to highlight multiple keywords with different colors
+
+- Idea: Paolo Antinori
+- Based on: ack - http://beyondgrep.com/ written by Andy Lester
+
+=== Description
+
+*h* (hhighlighter is just a name to help search engines) is a really tiny helper script meant to highligt keywords in the output of another linux command:
+
+
+=== Requirements
+
+*h* is just a tiny facade in front of *ack* so you need to install it first.
+
+*What is ack?*
+
+*ack* is a tool like *grep*, optimized for programmers
+
+Designed for programmers with large heterogeneous trees of source code, ack is written purely in portable Perl 5 and takes advantage of the power of Perl's regular expressions.
+
+see: http://beyondgrep.com/
+
+*ack installation*
+
+*ack* is part of many major linux distributions so you should use your *package manager* to install it.
+
+see: http://beyondgrep.com/install/
+
+If you want to install *ack* in a *portable* way ( at the end ack is just a script ) you do it in this way:
+
+`curl http://beyondgrep.com/ack-2.08-single-file > ~/bin/ack && chmod 0755 !#:3`
+
+
+=== Installation Instructions
+
+*h* is imlemented as a function in *bash*.
+
+You can install it in one of these ways
+
+- copy and paste `h()` function in you `~/.bashrc`
+- configure your `~/.bashrc` to load the external script with `. /path/to/h.sh`
+
+=== Platform Specifics
+
+*h* is currently working only on *bash*. I have plans to turn it compatible with *zsh* and other 1 indexed based arrays shells
+
+
+=== Usage
+
+*ack* is meant to consume the output of another linux command via pipe
+
+
+
+`echo "abcdefghijklmnopqrstuvxywz" | h  a b c d e f g h i j k l`
+
+or
+
+`tail -F | h keyword1 keyword2`
+
+or
+
+`mvn clean install | h FAILURE SUCCESS`
+
+----------
