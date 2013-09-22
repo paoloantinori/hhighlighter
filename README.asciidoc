@@ -63,4 +63,11 @@ or
 
 `mvn clean install | h FAILURE SUCCESS`
 
+=== Screenshots
+
+image:screenshots/rainbow.png[Rainbow,scaledwidth="75%"]
+image:screenshots/jboss-tail.png[Tail,scaledwidth="75%"]
+image:screenshots/maven.png[Maven,scaledwidth="75%"]
+
+
 ----------
