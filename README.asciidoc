@@ -1,9 +1,9 @@
-== hhighligher (or just h)
+== hhighlighter (or just h)
 
 A tiny utility to highlight multiple keywords with different colors
 
 - Idea: Paolo Antinori
-- Based on: ack - http://beyondgrep.com/ written by Andy Lester
+- Based on: *ack* - http://beyondgrep.com/ written by Andy Lester
 
 === Description
 
@@ -49,7 +49,7 @@ You can install it in one of these ways
 
 === Usage
 
-*ack* is meant to consume the output of another linux command via pipe
+*h* is meant to consume the output of another linux command via pipe
 
 
 
@@ -62,5 +62,12 @@ or
 or
 
 `mvn clean install | h FAILURE SUCCESS`
+
+=== Screenshots
+
+image:screenshots/rainbow.png[Rainbow,scaledwidth="75%"]
+image:screenshots/jboss-tail.png[Tail,scaledwidth="75%"]
+image:screenshots/maven.png[Maven,scaledwidth="75%"]
+
 
 ----------
