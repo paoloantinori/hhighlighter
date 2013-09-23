@@ -1,4 +1,4 @@
-== hhighligther (or just h)
+== hhighlighter (or just h)
 
 A tiny utility to highlight multiple keywords with different colors
 
