@@ -44,8 +44,7 @@ You can install it in one of these ways
 
 === Platform Specifics
 
-*h* is currently working only on *bash*. I have plans to turn it compatible with *zsh* and other 1 indexed based arrays shells
-
+*h* has currently been tested only on *bash* and *zsh* on *Linux*.
 
 === Usage
 
