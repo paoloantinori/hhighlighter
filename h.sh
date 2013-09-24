@@ -54,7 +54,7 @@ h() {
 	# build the filtering command
 	for keyword in "$@"
 	do
-		local _COMMAND=$_COMMAND"ack $_OPTS --flush --passthru --color --color-match=\"${_COLORS[$_i]}\" $keyword |"
+		local _COMMAND=$_COMMAND"ack $_OPTS --noenv --flush --passthru --color --color-match=\"${_COLORS[$_i]}\" $keyword |"
 	    _i=$_i+1
 	done
 	#trim ending pipe
