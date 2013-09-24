@@ -37,15 +37,14 @@ If you want to install *ack* in a *portable* way ( at the end ack is just a scri
 
 *h* is imlemented as a function in *bash*.
 
-You can install it in one of these ways
+You can install it in *one of these ways*:
 
 - copy and paste `h()` function in you `~/.bashrc`
 - configure your `~/.bashrc` to load the external script with `. /path/to/h.sh`
 
 === Platform Specifics
 
-*h* is currently working only on *bash*. I have plans to turn it compatible with *zsh* and other 1 indexed based arrays shells
-
+*h* has currently been tested only on *bash* and *zsh* on *Linux*.
 
 === Usage
 
