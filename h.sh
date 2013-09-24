@@ -7,29 +7,41 @@
 
 #### colorize helper script that uses ack (ack-grep)
 h() {
-	set -x
+
+	_usage() { 
+		echo "usage: YOUR_COMMAND | h [-i] [-Q] args...
+	-i : case insensitive
+	-Q : disable regexp"
+	}
 
 	local _OPTS
 
+	# detect pipe or direct
+	if test -t 0; then 
+		_usage
+		return
+	fi
+
+	# magae flags
 	while getopts ":iQ" opt; do
 	    case $opt in 
 	       i) _OPTS+=" -i " ;;
 	       Q)  _OPTS+=" -Q " ;;
 	           # $OPTARG is the option's argument ;;
-	       \?) echo "usage: h [-i] [-Q] args...
-	-i : case insensitive
-	-Q : automatically escapes regexp symbols"
-	            exit 1 ;;
+	       \?) _usage
+				return ;;
 	    esac
 	done
 	
 	shift $(($OPTIND - 1))
 
+	# check maximum allowed input
 	if (( ${#@} > 12)); then
 		echo "Too many terms. h supports a maximum of 12 groups. Consider relying on regular expression supported patterns like \"word1\\|word2\""
-		exit 1
+		exit -1
 	fi;
 
+	# set zsh compatibility
 	[[ -n $ZSH_VERSION ]] && setopt localoptions && setopt ksharrays && setopt ignorebraces
 
 	local _i=0
@@ -39,6 +51,7 @@ h() {
 	#inverted-colors-first scheme
 	#_COLORS=( "bold on_red" "bold on_green" "bold black on_yellow" "bold on_blue" "bold on_magenta" "bold on_cyan" "bold black on_white"  "underline bold red" "underline bold green" "underline bold yellow"  "underline bold blue"  "underline bold magenta" 	)
 
+	# build the filtering command
 	for keyword in "$@"
 	do
 		local _COMMAND=$_COMMAND"ack $_OPTS --flush --passthru --color --color-match=\"${_COLORS[$_i]}\" $keyword |"
@@ -47,7 +60,7 @@ h() {
 	#trim ending pipe
 	_COMMAND=${_COMMAND%?}
 	#echo "$_COMMAND"
-	cat | eval $_COMMAND
+	cat - | eval $_COMMAND
 }
 
 
