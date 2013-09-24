@@ -50,12 +50,11 @@ You can install it in *one of these ways*:
 
 *h* is meant to consume the output of another Linux command via pipe
 
-```
-$ h
+`
 usage: YOUR_COMMAND | h [-i] [-d] args...
 	-i : ignore case
 	-d : disable regexp
-```
+`
 
 
 === Examples
