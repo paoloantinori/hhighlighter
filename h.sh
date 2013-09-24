@@ -7,9 +7,27 @@
 
 #### colorize helper script that uses ack (ack-grep)
 h() {
+	set -x
+
+	local _OPTS
+
+	while getopts ":iQ" opt; do
+	    case $opt in 
+	       i) _OPTS+=" -i " ;;
+	       Q)  _OPTS+=" -Q " ;;
+	           # $OPTARG is the option's argument ;;
+	       \?) echo "usage: h [-i] [-Q] args...
+	-i : case insensitive
+	-Q : automatically escapes regexp symbols"
+	            exit 1 ;;
+	    esac
+	done
+	
+	shift $(($OPTIND - 1))
+
 	if (( ${#@} > 12)); then
 		echo "Too many terms. h supports a maximum of 12 groups. Consider relying on regular expression supported patterns like \"word1\\|word2\""
-		exit -1
+		exit 1
 	fi;
 
 	[[ -n $ZSH_VERSION ]] && setopt localoptions && setopt ksharrays && setopt ignorebraces
@@ -23,7 +41,7 @@ h() {
 
 	for keyword in "$@"
 	do
-		local _COMMAND=$_COMMAND"ack --flush --passthru --color --color-match=\"${_COLORS[$_i]}\" $keyword |"
+		local _COMMAND=$_COMMAND"ack $_OPTS --flush --passthru --color --color-match=\"${_COLORS[$_i]}\" $keyword |"
 	    _i=$_i+1
 	done
 	#trim ending pipe
