@@ -1,33 +1,41 @@
 #!/bin/bash
 
+# DESCRIPTION:
+#   * h highlights with color specified keywords when you invoke it via pipe
+#   * h is just a tiny wrapper around the powerful 'ack' (or 'ack-grep'). you need 'ack' installed to use h. ack website: http://beyondgrep.com/
 # INSTALL:
 #   * put something like this in your .bashrc:
 #     . /path/to/h.sh
 #   * or just copy and paste the function in your .bashrc
+# TEST ME:
+#   * try to invoke:
+#     echo "abcdefghijklmnopqrstuvxywz" | h   a b c d e f g h i j k l
+# GITHUB
+#   * https://github.com/paoloantinori/hhighlighter
 
-#### colorize helper script that uses ack (ack-grep)
 h() {
 
 	_usage() { 
-		echo "usage: YOUR_COMMAND | h [-i] [-Q] args...
-	-i : case insensitive
-	-Q : disable regexp"
+		echo "usage: YOUR_COMMAND | h [-i] [-d] args...
+	-i : ignore case
+	-d : disable regexp"
 	}
 
 	local _OPTS
 
-	# detect pipe or direct
+	# detect pipe or tty
 	if test -t 0; then 
 		_usage
 		return
 	fi
 
 	# magae flags
-	while getopts ":iQ" opt; do
+	while getopts ":idQ" opt; do
 	    case $opt in 
 	       i) _OPTS+=" -i " ;;
+		   d)  _OPTS+=" -Q " ;;
 	       Q)  _OPTS+=" -Q " ;;
-	           # $OPTARG is the option's argument ;;
+	           # let's keep hidden compatibility with -Q for original ack users
 	       \?) _usage
 				return ;;
 	    esac
