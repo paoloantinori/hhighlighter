@@ -7,7 +7,7 @@ A tiny utility to highlight multiple keywords with different colors
 
 === Description
 
-*h* (hhighlighter is just a name to help search engines) is a really tiny helper script meant to highligt keywords in the output of another linux command:
+*h* (hhighlighter is just a name to help search engines) is a really tiny helper script meant to highlight keywords in the output of another *nix command:
 
 
 === Requirements
@@ -48,9 +48,17 @@ You can install it in *one of these ways*:
 
 === Usage
 
-*h* is meant to consume the output of another linux command via pipe
+*h* is meant to consume the output of another Linux command via pipe
+
+```
+$ h
+usage: YOUR_COMMAND | h [-i] [-d] args...
+	-i : ignore case
+	-d : disable regexp
+```
 
 
+=== Examples
 
 `echo "abcdefghijklmnopqrstuvxywz" | h  a b c d e f g h i j k l`
 
