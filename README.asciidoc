@@ -50,24 +50,36 @@ You can install it in *one of these ways*:
 
 *h* is meant to consume the output of another Linux command via pipe
 
-`
+```
+$ h
 usage: YOUR_COMMAND | h [-i] [-d] args...
 	-i : ignore case
 	-d : disable regexp
-`
+```
 
 
 === Examples
 
-`echo "abcdefghijklmnopqrstuvxywz" | h  a b c d e f g h i j k l`
+.Available colors
+----
+echo "abcdefghijklmnopqrstuvxywz" | h   a b c d e f g h i j k l
+----
 
-or
+.Support for `tail` in follow mode
+----
+tail -F | h keyword1 keyword2
+----
 
-`tail -F | h keyword1 keyword2`
+.Case Insensitive
+----
+mvn clean install | h -i failure success
+----
 
-or
+.Disable regular expression
+----
+tail -F my.log | h -d org.apache.camel
+----
 
-`mvn clean install | h FAILURE SUCCESS`
 
 === Screenshots
 
