@@ -80,6 +80,11 @@ mvn clean install | h -i failure success
 tail -F my.log | h -d org.apache.camel
 ----
 
+.Highlight multiple keys with the same color (using regexp syntax)
+----
+echo abcd | h 'b|d'
+----
+
 
 === Screenshots
 
