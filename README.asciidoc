@@ -35,7 +35,7 @@ If you want to install *ack* in a *portable* way ( at the end ack is just a scri
 
 === Installation Instructions
 
-*h* is imlemented as a function in *bash*.
+*h* is implemented as a function in *bash*.
 
 You can install it in *one of these ways*:
 
