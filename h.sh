@@ -29,7 +29,7 @@ h() {
 		return
 	fi
 
-	# magae flags
+	# manage flags
 	while getopts ":idQ" opt; do
 	    case $opt in 
 	       i) _OPTS+=" -i " ;;
