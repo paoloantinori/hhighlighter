@@ -16,9 +16,10 @@
 h() {
 
 	_usage() { 
-		echo "usage: YOUR_COMMAND | h [-i] [-d] args...
+		echo "usage: YOUR_COMMAND | h [-idn] args...
 	-i : ignore case
-	-d : disable regexp"
+	-d : disable regexp
+	-n : invert colors"
 	}
 
 	local _OPTS
@@ -30,10 +31,11 @@ h() {
 	fi
 
 	# manage flags
-	while getopts ":idQ" opt; do
+	while getopts ":idnQ" opt; do
 	    case $opt in 
 	       i) _OPTS+=" -i " ;;
 		   d)  _OPTS+=" -Q " ;;
+	       n) n_flag=true ;;
 	       Q)  _OPTS+=" -Q " ;;
 	           # let's keep hidden compatibility with -Q for original ack users
 	       \?) _usage
@@ -54,10 +56,13 @@ h() {
 
 	local _i=0
 
-	#inverted-colors-last scheme
-	_COLORS=( "underline bold red" "underline bold green" "underline bold yellow"  "underline bold blue"  "underline bold magenta"  "underline bold cyan" "bold on_red" "bold on_green" "bold black on_yellow" "bold on_blue"  "bold on_cyan" "bold on_magenta"  )
-	#inverted-colors-first scheme
-	#_COLORS=( "bold on_red" "bold on_green" "bold black on_yellow" "bold on_blue" "bold on_magenta" "bold on_cyan" "bold black on_white"  "underline bold red" "underline bold green" "underline bold yellow"  "underline bold blue"  "underline bold magenta" 	)
+	if [ -z $n_flag ]; then
+		#inverted-colors-last scheme
+		_COLORS=( "underline bold red" "underline bold green" "underline bold yellow"  "underline bold blue"  "underline bold magenta"  "underline bold cyan" "bold on_red" "bold on_green" "bold black on_yellow" "bold on_blue"  "bold on_cyan" "bold on_magenta"  )
+	else
+		#inverted-colors-first scheme
+		_COLORS=( "bold on_red" "bold on_green" "bold black on_yellow" "bold on_blue" "bold on_magenta" "bold on_cyan" "bold black on_white"  "underline bold red" "underline bold green" "underline bold yellow"  "underline bold blue"  "underline bold magenta" 	)
+    fi
 
 	# build the filtering command
 	for keyword in "$@"
@@ -70,6 +75,3 @@ h() {
 	#echo "$_COMMAND"
 	cat - | eval $_COMMAND
 }
-
-
-
