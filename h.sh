@@ -15,7 +15,7 @@
 
 h() {
 
-	_usage() { 
+	_usage() {
 		echo "usage: YOUR_COMMAND | h [-idn] args...
 	-i : ignore case
 	-d : disable regexp
@@ -25,24 +25,24 @@ h() {
 	local _OPTS
 
 	# detect pipe or tty
-	if test -t 0; then 
+	if test -t 0; then
 		_usage
 		return
 	fi
 
 	# manage flags
 	while getopts ":idnQ" opt; do
-	    case $opt in 
-	       i) _OPTS+=" -i " ;;
-		   d)  _OPTS+=" -Q " ;;
-	       n) n_flag=true ;;
-	       Q)  _OPTS+=" -Q " ;;
-	           # let's keep hidden compatibility with -Q for original ack users
-	       \?) _usage
+		case $opt in
+			i) _OPTS+=" -i " ;;
+			d)  _OPTS+=" -Q " ;;
+			n) n_flag=true ;;
+			Q)  _OPTS+=" -Q " ;;
+				# let's keep hidden compatibility with -Q for original ack users
+			\?) _usage
 				return ;;
-	    esac
+		esac
 	done
-	
+
 	shift $(($OPTIND - 1))
 
 	# check maximum allowed input
@@ -58,11 +58,11 @@ h() {
 
 	if [ -z $n_flag ]; then
 		#inverted-colors-last scheme
-		_COLORS=( "underline bold red" "underline bold green" "underline bold yellow"  "underline bold blue"  "underline bold magenta"  "underline bold cyan" "bold on_red" "bold on_green" "bold black on_yellow" "bold on_blue"  "bold on_cyan" "bold on_magenta"  )
+		_COLORS=( "underline bold red" "underline bold green" "underline bold yellow" "underline bold blue" "underline bold magenta" "underline bold cyan" "bold on_red" "bold on_green" "bold black on_yellow" "bold on_blue" "bold on_cyan" "bold on_magenta" )
 	else
 		#inverted-colors-first scheme
-		_COLORS=( "bold on_red" "bold on_green" "bold black on_yellow" "bold on_blue" "bold on_magenta" "bold on_cyan" "bold black on_white"  "underline bold red" "underline bold green" "underline bold yellow"  "underline bold blue"  "underline bold magenta" 	)
-    fi
+		_COLORS=( "bold on_red" "bold on_green" "bold black on_yellow" "bold on_blue" "bold on_magenta" "bold on_cyan" "bold black on_white" "underline bold red" "underline bold green" "underline bold yellow" "underline bold blue" "underline bold magenta" )
+	fi
 
 	local ACK=ack
 	if ! which $ACK >/dev/null 2>&1; then
@@ -77,7 +77,7 @@ h() {
 	for keyword in "$@"
 	do
 		local _COMMAND=$_COMMAND"$ACK $_OPTS --noenv --flush --passthru --color --color-match=\"${_COLORS[$_i]}\" '$keyword' |"
-	    _i=$_i+1
+		_i=$_i+1
 	done
 	#trim ending pipe
 	_COMMAND=${_COMMAND%?}
