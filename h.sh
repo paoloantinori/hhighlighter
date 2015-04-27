@@ -64,10 +64,19 @@ h() {
 		_COLORS=( "bold on_red" "bold on_green" "bold black on_yellow" "bold on_blue" "bold on_magenta" "bold on_cyan" "bold black on_white"  "underline bold red" "underline bold green" "underline bold yellow"  "underline bold blue"  "underline bold magenta" 	)
     fi
 
+	local ACK=ack
+	if ! which $ACK >/dev/null 2>&1; then
+		ACK=ack-grep
+		if ! which $ACK >/dev/null 2>&1; then
+			echo "Could not find ack or ack-grep"
+			exit -1
+		fi
+	fi
+
 	# build the filtering command
 	for keyword in "$@"
 	do
-		local _COMMAND=$_COMMAND"ack $_OPTS --noenv --flush --passthru --color --color-match=\"${_COLORS[$_i]}\" '$keyword' |"
+		local _COMMAND=$_COMMAND"$ACK $_OPTS --noenv --flush --passthru --color --color-match=\"${_COLORS[$_i]}\" '$keyword' |"
 	    _i=$_i+1
 	done
 	#trim ending pipe
