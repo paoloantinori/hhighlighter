@@ -44,7 +44,7 @@ You can install it in *one of these ways*:
 
 === Platform Specifics
 
-*h* has currently been tested only on *bash* and *zsh* on *Linux*.
+*h* has currently been tested only on *bash* and *zsh* on *Linux* and *MacOSX*.
 
 === Usage
 
