@@ -39,7 +39,7 @@ If you want to install *ack* in a *portable* way ( at the end ack is just a scri
 
 You can install it in *one of these ways*:
 
-- copy and paste `h()` function in you `~/.bashrc`
+- copy and paste `h()` function in your `~/.bashrc`
 - configure your `~/.bashrc` to load the external script with `. /path/to/h.sh`
 
 === Platform Specifics
