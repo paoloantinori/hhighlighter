@@ -48,7 +48,7 @@ h() {
 	# check maximum allowed input
 	if (( ${#@} > 12)); then
 		echo "Too many terms. h supports a maximum of 12 groups. Consider relying on regular expression supported patterns like \"word1\\|word2\""
-		exit -1
+		return -1
 	fi;
 
 	# set zsh compatibility
@@ -69,7 +69,7 @@ h() {
 		ACK=ack-grep
 		if ! which $ACK >/dev/null 2>&1; then
 			echo "Could not find ack or ack-grep"
-			exit -1
+			return -1
 		fi
 	fi
 
