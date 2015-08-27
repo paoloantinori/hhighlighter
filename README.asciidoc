@@ -123,5 +123,9 @@ image:screenshots/maven.png[Maven,scaledwidth="75%"]
 
 image:screenshots/custom.png[Custom Colors,scaledwidth="75%"]
 
-
 ----------
+
+=== Demos
+
+[[img-asciicast]]
+image::https://asciinema.org/a/5cbw3rnhchsdnxcihtusf48vp.png[caption="Ascii Cinema: ", title="Ascii Cinema", alt="Ascii Cinema Demo",  link="https://asciinema.org/a/5cbw3rnhchsdnxcihtusf48vp"]
