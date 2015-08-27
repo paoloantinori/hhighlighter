@@ -59,9 +59,27 @@ usage: YOUR_COMMAND | h [-i] [-d] args...
 ```
 
 
+=== Configuration
+
+.*h* supports overriding of its default colors via 2 environment variables: `H_COLORS_FG` and `H_COLORS_BG`.
+These variables accepts a *comma separated values* set of http://perldoc.perl.org/Term/ANSIColor.html[Perl Term::ANSIColor] configuration entries. 
+For a table of RGB colors definition check this handy map:
+
+[[img-rgb]]
+image::screenshots/rgb.jpg[caption="Figure 1: ", title="RGB Map, taken from https://github.com/jbnicolai/ansi-256-colors", alt="RGB Colors Map", width="728", height="1065", link="https://github.com/jbnicolai/ansi-256-colors"]
+
+ex.
+
+----
+export H_COLORS_FG="bold black on_rgb520","bold red on_rgb025"
+export H_COLORS_BG="underline bold rgb520","underline bold rgb025"
+echo abcdefghi | h   a b c d
+----
+
+
 === Examples
 
-.Available colors
+.Default colors
 ----
 echo "abcdefghijklmnopqrstuvxywz" | h   a b c d e f g h i j k l
 ----
