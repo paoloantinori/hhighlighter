@@ -66,9 +66,9 @@ These variables accepts a *comma separated values* set of http://perldoc.perl.or
 For a table of RGB colors definition check this handy map:
 
 [[img-rgb]]
-image::screenshots/rgb.jpg[caption="Figure 1: ", title="RGB Map, taken from https://github.com/jbnicolai/ansi-256-colors", alt="RGB Colors Map", width="728", height="1065", link="https://github.com/jbnicolai/ansi-256-colors"]
+image::screenshots/rgb.png[caption="Figure 1: ", title="RGB Map, taken from https://github.com/jbnicolai/ansi-256-colors", alt="RGB Colors Map", width="25%", height="25%", link="https://github.com/jbnicolai/ansi-256-colors"]
 
-ex.
+Ex.
 
 ----
 export H_COLORS_FG="bold black on_rgb520","bold red on_rgb025"
