@@ -121,4 +121,7 @@ image:screenshots/jboss-tail.png[Tail,scaledwidth="75%"]
 image:screenshots/maven.png[Maven,scaledwidth="75%"]
 
 
+image:screenshots/rgb.png[Custom Colors,scaledwidth="75%"]
+
+
 ----------
