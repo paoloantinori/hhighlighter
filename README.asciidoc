@@ -123,7 +123,6 @@ image:screenshots/maven.png[Maven,scaledwidth="75%"]
 
 image:screenshots/custom.png[Custom Colors,scaledwidth="75%"]
 
-----------
 
 === Demos
 
