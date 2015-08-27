@@ -126,5 +126,9 @@ image:screenshots/custom.png[Custom Colors,scaledwidth="75%"]
 
 === Demos
 
+[[img-gif]]
+image::screenshots/asciicast.gif[caption="Ascii Cinema Gif", title="Ascii Cinema Gif", alt="Ascii Cinema Gif",  link="screenshots/asciicast.gif"]
+
+
 [[img-asciicast]]
 image::https://asciinema.org/a/5cbw3rnhchsdnxcihtusf48vp.png[caption="Ascii Cinema: ", title="Ascii Cinema", alt="Ascii Cinema Demo",  link="https://asciinema.org/a/5cbw3rnhchsdnxcihtusf48vp"]
