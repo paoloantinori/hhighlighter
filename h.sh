@@ -114,7 +114,7 @@ h() {
     fi
 
     if [[ "$#" -gt ${#_COLORS[@]} ]]; then
-        echo "You have passed to hhighlighter more keyords to search than the number of configured colors.
+        echo "You have passed to hhighlighter more keywords to search than the number of configured colors.
 Check the content of your H_COLORS_FG and H_COLORS_BG environment variables or unset them to use default 12 defined colors."
         return 1
     fi
