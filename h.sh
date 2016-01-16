@@ -20,6 +20,13 @@
 # GITHUB
 #   * https://github.com/paoloantinori/hhighlighter
 
+# Check for the ack command
+if [[ -z $(type -p ack-grep || type -p ack) ]]; then
+    echo "ERROR: Could not find the ack or ack-grep commands"
+    return 1
+fi
+
+
 h() {
 
     _usage() {
@@ -112,15 +119,7 @@ Check the content of your H_COLORS_FG and H_COLORS_BG environment variables or u
         return 1
     fi
 
-
-    local ACK=ack
-    if ! which $ACK >/dev/null 2>&1; then
-        ACK=ack-grep
-        if ! which $ACK >/dev/null 2>&1; then
-            echo "Could not find ack or ack-grep"
-            return 1
-        fi
-    fi
+    local ACK=$(type -p ack-grep || type -p ack)
 
     # build the filtering command
     for keyword in "$@"
