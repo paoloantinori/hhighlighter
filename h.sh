@@ -39,7 +39,7 @@ h() {
     local _OPTS
 
     # detect pipe or tty
-    if test -t 0; then
+    if [[ -t 0 ]]; then
         _usage
         return
     fi
@@ -105,7 +105,7 @@ h() {
                 )
     fi
 
-    if [ -z $n_flag ]; then
+    if [[ -z $n_flag ]]; then
         #inverted-colors-last scheme
         _COLORS=("${_COLORS_FG[@]}" "${_COLORS_BG[@]}")
     else
@@ -113,7 +113,7 @@ h() {
         _COLORS=("${_COLORS_BG[@]}" "${_COLORS_FG[@]}")
     fi
 
-    if [ "$#" -gt ${#_COLORS[@]} ]; then
+    if [[ "$#" -gt ${#_COLORS[@]} ]]; then
         echo "You have passed to hhighlighter more keyords to search than the number of configured colors.
 Check the content of your H_COLORS_FG and H_COLORS_BG environment variables or unset them to use default 12 defined colors."
         return 1
