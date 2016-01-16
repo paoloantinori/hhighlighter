@@ -109,7 +109,7 @@ h() {
     if [ "$#" -gt ${#_COLORS[@]} ]; then
         echo "You have passed to hhighlighter more keyords to search than the number of configured colors.
 Check the content of your H_COLORS_FG and H_COLORS_BG environment variables or unset them to use default 12 defined colors."
-        return -1
+        return 1
     fi
 
 
@@ -118,7 +118,7 @@ Check the content of your H_COLORS_FG and H_COLORS_BG environment variables or u
         ACK=ack-grep
         if ! which $ACK >/dev/null 2>&1; then
             echo "Could not find ack or ack-grep"
-            return -1
+            return 1
         fi
     fi
 
