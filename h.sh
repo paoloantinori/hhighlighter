@@ -20,6 +20,13 @@
 # GITHUB
 #   * https://github.com/paoloantinori/hhighlighter
 
+# Check for the ack command
+if [[ -z $(type -p ack-grep || type -p ack) ]]; then
+    echo "ERROR: Could not find the ack or ack-grep commands"
+    return 1
+fi
+
+
 h() {
 
     _usage() {
@@ -32,7 +39,7 @@ h() {
     local _OPTS
 
     # detect pipe or tty
-    if test -t 0; then
+    if [[ -t 0 ]]; then
         _usage
         return
     fi
@@ -98,7 +105,7 @@ h() {
                 )
     fi
 
-    if [ -z $n_flag ]; then
+    if [[ -z $n_flag ]]; then
         #inverted-colors-last scheme
         _COLORS=("${_COLORS_FG[@]}" "${_COLORS_BG[@]}")
     else
@@ -106,21 +113,13 @@ h() {
         _COLORS=("${_COLORS_BG[@]}" "${_COLORS_FG[@]}")
     fi
 
-    if [ "$#" -gt ${#_COLORS[@]} ]; then
-        echo "You have passed to hhighlighter more keyords to search than the number of configured colors.
+    if [[ "$#" -gt ${#_COLORS[@]} ]]; then
+        echo "You have passed to hhighlighter more keywords to search than the number of configured colors.
 Check the content of your H_COLORS_FG and H_COLORS_BG environment variables or unset them to use default 12 defined colors."
-        return -1
+        return 1
     fi
 
-
-    local ACK=ack
-    if ! which $ACK >/dev/null 2>&1; then
-        ACK=ack-grep
-        if ! which $ACK >/dev/null 2>&1; then
-            echo "Could not find ack or ack-grep"
-            return -1
-        fi
-    fi
+    local ACK=$(type -p ack-grep || type -p ack)
 
     # build the filtering command
     for keyword in "$@"
