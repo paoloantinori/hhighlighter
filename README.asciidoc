@@ -30,7 +30,7 @@ see: http://beyondgrep.com/install/
 
 If you want to install *ack* in a *portable* way ( at the end ack is just a script ) you do it in this way:
 
-`curl http://beyondgrep.com/ack-2.14-single-file > ~/bin/ack && chmod 0755 !#:3`
+`curl https://beyondgrep.com/ack-2.16-single-file > ~/bin/ack && chmod 0755 !#:3`
 
 
 === Installation Instructions
