@@ -42,6 +42,22 @@ You can install it in *one of these ways*:
 - copy and paste `h()` function in your `~/.bashrc`
 - configure your `~/.bashrc` to load the external script with `. /path/to/h.sh`
 
+==== Zsh with Oh-My-Zsh
+Just run the following commands
+```bash
+cd $ZSH_CUSTOM/plugins
+git clone git@github.com:paoloantinori/hhighlighter.git h
+mv h/h.sh h/h.plugin.zsh
+```
+
+then add *h* to your plugins variable in your `~/.zshrc` file.
+```bash
+plugins=(
+  h
+  ...
+)
+```
+
 === Platform Specifics
 
 *h* has currently been tested only on *bash* and *zsh* on *Linux* and *MacOSX*.
