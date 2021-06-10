@@ -39,8 +39,13 @@ If you want to install *ack* in a *portable* way ( at the end ack is just a scri
 
 You can install it in *one of these ways*:
 
+
 - copy and paste `h()` function in your `~/.bashrc`
 - configure your `~/.bashrc` to load the external script with `. /path/to/h.sh`
+
+or using Shinichi Okada's Awesome Package Manager - https://github.com/shinokada/awesome
+- `awesome -i paoloantinori/hhighlighter h`
+
 
 ==== Zsh with Oh-My-Zsh
 Just run the following commands
