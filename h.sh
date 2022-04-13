@@ -25,6 +25,40 @@
 
 
 function h() {
+    # set zsh compatibility
+    [[ -n ${ZSH_VERSION} ]] && setopt localoptions && setopt ksharrays && setopt ignorebraces
+
+    _check_program() {
+        if [[ -n ${ZSH_VERSION} ]]; then
+            local WHICH="whence"
+        else [[ -n ${BASH_VERSION} ]]
+            local WHICH="type -P"
+        fi
+
+        if ! ACKGREP_LOC="$($WHICH ack-grep)" || [ -z "$ACKGREP_LOC" ]; then
+            if ! ACK_LOC="$($WHICH ack)" || [ -z "$ACK_LOC" ]; then
+                if ! AG_LOC="$($WHICH ag)" || [ -z "$AG_LOC" ]; then
+                    return
+                else
+                    $WHICH ag
+                    return 2
+                fi
+            else
+                $WHICH ack
+                return 1
+            fi
+        else
+            $WHICH ack-grep
+            return 1
+        fi
+    }
+
+    PROG=$(_check_program)
+    PROG_TYPE=$?
+    if [[ -z "$PROG" ]]; then
+        echo "ERROR: Could not find the ack or ack-grep or ag commands"
+        return 1
+    fi
 
     _usage() {
         echo "usage: YOUR_COMMAND | h [-idn] args...
@@ -57,9 +91,6 @@ function h() {
 
     shift "$(( OPTIND - 1 ))"
 
-    # set zsh compatibility
-    [[ -n ${ZSH_VERSION} ]] && setopt localoptions && setopt ksharrays && setopt ignorebraces
-
     local _i=0
 
     if [[ -n ${H_COLORS_FG} ]]; then
@@ -72,14 +103,25 @@ function h() {
         done
         IFS="$OLD_IFS"
     else
-        _COLORS_FG=(
-                "underline bold red" \
-                "underline bold green" \
-                "underline bold yellow" \
-                "underline bold blue" \
-                "underline bold magenta" \
-                "underline bold cyan"
-                )
+        if [[ "$PROG_TYPE" -eq 1 ]]; then
+            _COLORS_FG=(
+                    "underline bold red" \
+                    "underline bold green" \
+                    "underline bold yellow" \
+                    "underline bold blue" \
+                    "underline bold magenta" \
+                    "underline bold cyan"
+                    )
+        elif [[ "$PROG_TYPE" -eq 2 ]]; then
+            _COLORS_FG=(
+                    "4;31" \
+                    "4;32" \
+                    "4;33" \
+                    "4;34" \
+                    "4;35" \
+                    "4;36"
+                    )
+        fi
     fi
 
     if [[ -n ${H_COLORS_BG} ]]; then
@@ -92,15 +134,27 @@ function h() {
         done
         IFS="$OLD_IFS"
     else
-        _COLORS_BG=(
-                "bold on_red" \
-                "bold on_green" \
-                "bold black on_yellow" \
-                "bold on_blue" \
-                "bold on_magenta" \
-                "bold on_cyan" \
-                "bold black on_white"
-                )
+        if [[ "$PROG_TYPE" -eq 1 ]]; then
+            _COLORS_BG=(
+                    "bold on_red" \
+                    "bold on_green" \
+                    "bold black on_yellow" \
+                    "bold on_blue" \
+                    "bold on_magenta" \
+                    "bold on_cyan" \
+                    "bold black on_white"
+                    )
+        elif [[ "$PROG_TYPE" -eq 2 ]]; then
+            _COLORS_BG=(
+                    "7;31" \
+                    "7;32" \
+                    "7;33"\
+                    "7;34" \
+                    "7;35" \
+                    "7;36" \
+                    "7;37"
+                    )
+        fi
     fi
 
     if [[ -n ${n_flag} ]]; then
@@ -113,26 +167,8 @@ function h() {
 
     if [[ "$#" -gt ${#_COLORS[@]} ]]; then
         echo "You have passed to hhighlighter more keywords to search than the number of configured colors.
-Check the content of your H_COLORS_FG and H_COLORS_BG environment variables or unset them to use default 12 defined colors."
+Check the content of your H_COLORS_FG and H_COLORS_BG environment variables or unset them to use default 13 defined colors."
         return 1
-    fi
-
-    if [[ -n ${ZSH_VERSION} ]]; then
-       local WHICH="whence"
-    else [[ -n ${BASH_VERSION} ]]
-       local WHICH="type -P"
-    fi
-
-    local ACK
-    if ! ACKGREP_LOC="$($WHICH ack-grep)" || [ -z "$ACKGREP_LOC" ]; then
-        if ! ACK_LOC="$($WHICH ack)" || [ -z "$ACK_LOC" ]; then
-            echo "ERROR: Could not find the ack or ack-grep commands"
-            return 1
-        else
-            ACK="$($WHICH ack)"
-        fi
-    else
-        ACK="$($WHICH ack-grep)"
     fi
 
     local _COMMAND
@@ -140,7 +176,11 @@ Check the content of your H_COLORS_FG and H_COLORS_BG environment variables or u
     # build the filtering command
     for keyword in "$@"
     do
-        _COMMAND=$_COMMAND"$ACK $_OPTS --noenv --flush --passthru --color --color-match=\"${_COLORS[$_i]}\" '$keyword' |"
+        if [[ "$PROG_TYPE" -eq 1 ]]; then
+            _COMMAND=$_COMMAND"$PROG $_OPTS --noenv --flush --passthru --color --color-match=\"${_COLORS[$_i]}\" '$keyword' |"
+        elif [[ "$PROG_TYPE" -eq 2 ]]; then
+            _COMMAND=$_COMMAND"$PROG $_OPTS --passthru --color --color-match=\"${_COLORS[$_i]}\" '$keyword' |"
+        fi
         _i=$_i+1
     done
     #trim ending pipe
