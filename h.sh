@@ -34,6 +34,7 @@ function h() {
     }
 
     local _OPTS
+    _OPTS=""
 
     # detect pipe or tty
     if [[ -t 0 ]]; then
@@ -54,14 +55,14 @@ function h() {
         esac
     done
 
-    shift $(($OPTIND - 1))
+    shift "$(( OPTIND - 1 ))"
 
     # set zsh compatibility
-    [[ -n $ZSH_VERSION ]] && setopt localoptions && setopt ksharrays && setopt ignorebraces
+    [[ -n ${ZSH_VERSION} ]] && setopt localoptions && setopt ksharrays && setopt ignorebraces
 
     local _i=0
 
-    if [[ -n $H_COLORS_FG ]]; then
+    if [[ -n ${H_COLORS_FG} ]]; then
         local _CSV="$H_COLORS_FG"
         local OLD_IFS="$IFS"
         IFS=','
@@ -71,7 +72,7 @@ function h() {
         done
         IFS="$OLD_IFS"
     else
-        _COLORS_FG=( 
+        _COLORS_FG=(
                 "underline bold red" \
                 "underline bold green" \
                 "underline bold yellow" \
@@ -81,7 +82,7 @@ function h() {
                 )
     fi
 
-    if [[ -n $H_COLORS_BG ]]; then
+    if [[ -n ${H_COLORS_BG} ]]; then
         local _CSV="$H_COLORS_BG"
         local OLD_IFS="$IFS"
         IFS=','
@@ -91,7 +92,7 @@ function h() {
         done
         IFS="$OLD_IFS"
     else
-        _COLORS_BG=(            
+        _COLORS_BG=(
                 "bold on_red" \
                 "bold on_green" \
                 "bold black on_yellow" \
@@ -102,7 +103,7 @@ function h() {
                 )
     fi
 
-    if [[ -z $n_flag ]]; then
+    if [[ -n ${n_flag} ]]; then
         #inverted-colors-last scheme
         _COLORS=("${_COLORS_FG[@]}" "${_COLORS_BG[@]}")
     else
@@ -116,32 +117,35 @@ Check the content of your H_COLORS_FG and H_COLORS_BG environment variables or u
         return 1
     fi
 
-    if [ -n "$ZSH_VERSION" ]; then
+    if [[ -n ${ZSH_VERSION} ]]; then
        local WHICH="whence"
-    else [ -n "$BASH_VERSION" ]
+    else [[ -n ${BASH_VERSION} ]]
        local WHICH="type -P"
     fi
 
+    local ACK
     if ! ACKGREP_LOC="$($WHICH ack-grep)" || [ -z "$ACKGREP_LOC" ]; then
         if ! ACK_LOC="$($WHICH ack)" || [ -z "$ACK_LOC" ]; then
             echo "ERROR: Could not find the ack or ack-grep commands"
             return 1
         else
-            local ACK=$($WHICH ack)
+            ACK="$($WHICH ack)"
         fi
     else
-        local ACK=$($WHICH ack-grep)
+        ACK="$($WHICH ack-grep)"
     fi
 
+    local _COMMAND
+    _COMMAND=""
     # build the filtering command
     for keyword in "$@"
     do
-        local _COMMAND=$_COMMAND"$ACK $_OPTS --noenv --flush --passthru --color --color-match=\"${_COLORS[$_i]}\" '$keyword' |"
+        _COMMAND=$_COMMAND"$ACK $_OPTS --noenv --flush --passthru --color --color-match=\"${_COLORS[$_i]}\" '$keyword' |"
         _i=$_i+1
     done
     #trim ending pipe
     _COMMAND=${_COMMAND%?}
     #echo "$_COMMAND"
-    cat - | eval $_COMMAND
+    cat - | eval "$_COMMAND"
 
 }
