@@ -63,6 +63,13 @@ plugins=(
 )
 ```
 
+==== Zsh with https://github.com/zplug/zplug[zplug]
+Add the following to your `~/.zshrc` file:
+
+```bash
+zplug "paoloantinori/hhighlighter", use: h.sh
+```
+
 === Platform Specifics
 
 *h* has currently been tested only on *bash* and *zsh* on *Linux* and *MacOSX*.

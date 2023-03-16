@@ -24,7 +24,7 @@
 
 
 
-h() {
+function h() {
 
     _usage() {
         echo "usage: YOUR_COMMAND | h [-idn] args...
