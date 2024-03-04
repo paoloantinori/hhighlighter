@@ -63,9 +63,20 @@ plugins=(
 )
 ```
 
+
+==== Fish shell
+- copy the file h.sh to e.g. $HOME/bin
+- add the following to your $HOME/.config/fish/config.fish
+```
+function h
+   bash -c "source $HOME/bin/h.sh; h $argv"
+end
+```
+
+
 === Platform Specifics
 
-*h* has currently been tested only on *bash* and *zsh* on *Linux* and *MacOSX*.
+*h* has currently been tested only on *bash* and *zsh* on *Linux* and *MacOSX*, as well as on *fish* on *MacOSX*.
 
 === Usage
 
